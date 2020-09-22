@@ -16,13 +16,16 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         viewModelFactory = MainActivityViewModelFactory(125.0)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
 
-        binding.textView.text = viewModel.getSum().toString()
+        viewModel.totalData.observe(this, {
+            binding.textView.text = it?.toString()
+        })
+
         binding.button.setOnClickListener {
-            viewModel.addToSum(binding.editText.text.toString().toDouble())
-            binding.textView.text = viewModel.getSum().toString()
+            viewModel.setTotal(binding.editText.text.toString().toDouble())
         }
     }
 }

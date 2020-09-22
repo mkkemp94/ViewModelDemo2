@@ -1,20 +1,19 @@
 package com.mkemp.viewmodeldemo2
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel(startingTotal: Double) : ViewModel()
 {
-    private var sum: Double = 0.0
+    private var total = MutableLiveData<Double>()
+    val totalData: LiveData<Double> get() = total
 
     init {
-        sum = startingTotal
+        total.value = startingTotal
     }
 
-    fun getSum(): Double {
-        return sum
-    }
-
-    fun addToSum(amount: Double) {
-        sum += amount
+    fun setTotal(amount: Double) {
+        total.value = (total.value)?.plus(amount)
     }
 }
