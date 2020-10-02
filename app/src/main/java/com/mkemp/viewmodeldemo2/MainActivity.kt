@@ -19,13 +19,7 @@ class MainActivity : AppCompatActivity()
 
         viewModelFactory = MainActivityViewModelFactory(125.0)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
-
-        viewModel.totalData.observe(this, {
-            binding.textView.text = it?.toString()
-        })
-
-        binding.button.setOnClickListener {
-            viewModel.setTotal(binding.editText.text.toString().toDouble())
-        }
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 }
